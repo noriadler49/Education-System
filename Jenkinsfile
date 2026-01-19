@@ -1,7 +1,7 @@
 pipeline {
     agent any
 
-    // Khai báo tool
+
     tools {
         maven 'Maven-3.9'
         jdk 'JDK-21'
