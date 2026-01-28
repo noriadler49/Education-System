@@ -1,3 +1,5 @@
+CREATE DATABASE lms_db;
+USE lms_db;
 
 -- ============================================
 -- 1. NHÓM BẢNG CẤU HÌNH HỆ THỐNG
@@ -260,7 +262,7 @@ CREATE TABLE learning_materials (
                                     title VARCHAR(255) NOT NULL,
                                     description TEXT,
                                     file_type VARCHAR(20) CHECK (file_type IN ('slide', 'video', 'document', 'link', 'other')),
-                                    file_url VARCHAR(500),
+                                    file_path VARCHAR(500),
                                     file_size BIGINT,
                                     file_name VARCHAR(255),
                                     status VARCHAR(20) DEFAULT 'unpublished' CHECK (status IN ('published', 'unpublished')),
@@ -280,7 +282,7 @@ CREATE TABLE assignments (
                              online_class_id VARCHAR(36) NOT NULL,
                              title NVARCHAR(255) NOT NULL,
                              description TEXT,
-                             attachment_url VARCHAR(500) DEFAULT NULL, -- File đính kèm đề bài (Word/PDF) cho bài Tự luận
+                             attachment_path VARCHAR(500) DEFAULT NULL, -- File đính kèm đề bài (Word/PDF) cho bài Tự luận
                              assignment_type VARCHAR(30) CHECK (assignment_type IN ('multiple_choice', 'essay', 'file_upload', 'mixed')),
                              start_time DATETIME, -- Thời gian mở đề
                              due_time DATETIME,   -- Hạn chót nộp bài
@@ -352,7 +354,7 @@ CREATE TABLE submission_attachments (
                                         id VARCHAR(36) PRIMARY KEY,
                                         submission_id VARCHAR(36) NOT NULL,
                                         file_name VARCHAR(255) NOT NULL, -- Tên file gốc (Ví dụ: Bai_tap_Toan_Trang1.jpg)
-                                        file_url VARCHAR(500) NOT NULL, -- Đường dẫn file trên Server/Cloud (Ví dụ: /uploads/homework/xyz.jpg)
+                                        file_path VARCHAR(500) NOT NULL, -- Đường dẫn file trên Server/Cloud (Ví dụ: /uploads/homework/xyz.jpg)
     -- Loại file (Để hiển thị icon Word, Excel, PDF, Ảnh...)
                                         file_type VARCHAR(50) CHECK (file_type IN ('image', 'document', 'video', 'audio', 'compressed', 'other')),
                                         file_size BIGINT, -- Dung lượng file (Lưu bằng bytes - Để thống kê dung lượng lưu trữ)
@@ -387,7 +389,7 @@ CREATE TABLE announcements (
                                scope VARCHAR(20) NOT NULL CHECK (scope IN ('physical_class', 'online_class')),
                                physical_class_id VARCHAR(36),
                                online_class_id VARCHAR(36),
-                               attachment_url VARCHAR(500), -- File đính kèm (Ví dụ: File PDF lịch thi, Ảnh banner sự kiện)
+                               attachment_path VARCHAR(500), -- File đính kèm (Ví dụ: File PDF lịch thi, Ảnh banner sự kiện)
                                created_by VARCHAR(36), -- Người đăng
                                published_at DATETIME DEFAULT CURRENT_TIMESTAMP,
                                created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
